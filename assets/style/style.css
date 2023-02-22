@@ -1,0 +1,97 @@
+*{
+   /* outline: 1px solid red;*/
+   box-sizing: border-box;
+}
+
+nav a{
+    border-radius: 20px;
+    padding: 1rem;
+    margin: 0.5rem;
+    /*box-shadow: 0px 0 7px rgba(217,3,104, 0.8);*/
+    border: 2px dashed rgb(217,3,104);
+    color: rgb(217,3,104) !important;
+    transition: all 0.3s;
+    font-weight: 600 !important;
+    background-color: white;
+}
+
+
+nav a:hover{
+    box-shadow: 0px 0 10px rgba(255,255,255, 0.8);
+    color: rgb(243, 54, 142) !important;
+    transform: scale(1.1);
+    border-style: solid;
+}
+
+nav a.active{
+    background-color: rgb(217,3,104);
+    color: white !important;
+    border-color: white;
+}
+
+.navbar-toggler{
+    background-color: rgb(217,3,104) !important;
+}
+
+.navbar-toggler:hover{
+    transform: scale(1.1);
+}
+
+header,body{
+    background-color: rgb(223, 223, 223) !important;
+}
+
+.logo{
+    height: 3rem;
+}
+
+.izq{
+    transform: scaleX(-1);
+}
+
+.izq,.der{
+    width: 20px;
+    transition: all 0.3s;
+}
+
+.der:hover{
+    transform: scale(1.1) translateX(5px);
+}
+
+.izq:hover{
+    transform: scaleX(-1.1) scaleY(1.1) translateX(5px);
+}
+
+h1{
+    text-align: center;
+}
+
+header{
+    min-height: 20vh;
+}
+
+main{
+    min-height: 70vh;
+}
+
+footer{
+    background-color: rgb(217,3,104);
+    min-height: 10vh;
+}
+
+footer .reds{
+    width: 5vw;
+    transition: all 0.3s;
+}
+
+footer .reds:hover{
+    transform: scale(1.2);
+}
+
+.sombrasuave{
+    box-shadow: 0px 0px 10px -6px rgba(0, 0, 0, 0.8);
+}
+
+.sombra{
+    box-shadow: 0px -8px 8px -8px rgba(0, 0, 0, 0.8);
+}
