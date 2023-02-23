@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-----------------------------------------------------head------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +12,13 @@
     <link rel="shortcut icon" href="assets/img/favicon-03.png" type="image/x-icon">
     <title>Past Events</title>
 </head>
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-----------------------------------------------------body------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
 <body class="container-fluid p-0 m-0">
+<!---------------------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------cabecera----------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
     <header class="col-12 d-flex justify-content-between align-items-center p-0 m-0">
         <img class="ps-3 logo" src="assets/img/Logo.png" alt="logo amazing events">
         <nav class="navbar navbar-expand-lg m-0">
@@ -40,30 +49,35 @@
           </nav>
     </header>
     <main class="container-fluid p-0">
+<!---------------------------------------------------------------------------------------------------------------------->
+<!----------------------------------------------titulo con navegacion--------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
         <section class="sombrasuave col-12 d-flex justify-content-between align-items-center px-4 py-2 bg-white">
             <!--barra con titulo-->
             <a href="./UpcomingEvents.html"><img class="izq"src="assets/img/flecha.png" alt="izquierda"></a>
             <h1>Past Events</h1>
             <a href="./contact.html"><img class="der" src="assets/img/flecha.png" alt="derecha"></a>
         </section>
-        <!--contenido-->
+<!---------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------contenido----------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
         <section class="d-flex flex-column container-fluid pt-3 gap-4">
-          <!--formulario buscador-->
-          <form class="container-fluid d-flex justify-content-between align-items-center">
-            <div class="container-fluid d-flex gap-3 p-0">
-              <label class="d-flex gap-1 align-items-center" for="cat1"> <input type="checkbox" name="cat1" id="cat1"> Category</label>
-              <label class="d-flex gap-1 align-items-center" for="cat2"> <input type="checkbox" name="cat2" id="cat2"> Category</label>
-              <label class="d-flex gap-1 align-items-center" for="cat3"> <input type="checkbox" name="cat3" id="cat3"> Category</label>
-              <label class="d-flex gap-1 align-items-center" for="cat4"> <input type="checkbox" name="cat4" id="cat4"> Category</label>
-              <label class="d-flex gap-1 align-items-center" for="cat5"> <input type="checkbox" name="cat5" id="cat5"> Category</label>
-            </div>
-            <div class="container-fluid d-flex gap-1 p-0 justify-content-end align-items-center">
-              <input type="text" class="col-8" name="busq" id="busq">
-              <button type="submit" class="buscar btn btn-dark"><img class="lupa p-0 m-0" src="assets/img/lupa.png" alt=""></button>
-            </div>
-          </form>
-          <!--cards con eventos-->
-          <div class="container-fluid d-flex gap-3 align-items-center justify-content-start pb-4">
+  <!---------------------------------------------formulario - buscador---------------------------------------------------->
+              <form class="container-fluid d-flex flex-column flex-sm-row flex-wrap justify-content-md-between justify-content-start align-items-md-center align-items-start gap-2 gap-md-0">
+                <div class="col-lg-5 d-flex gap-3 p-0">
+                  <label class="d-flex gap-1 align-items-center" for="cat1"> <input type="checkbox" name="cat1" id="cat1"> Category</label>
+                  <label class="d-flex gap-1 align-items-center" for="cat2"> <input type="checkbox" name="cat2" id="cat2"> Category</label>
+                  <label class="d-flex gap-1 align-items-center" for="cat3"> <input type="checkbox" name="cat3" id="cat3"> Category</label>
+                  <label class="d-flex gap-1 align-items-center" for="cat4"> <input type="checkbox" name="cat4" id="cat4"> Category</label>
+                  <label class="d-flex gap-1 align-items-center" for="cat5"> <input type="checkbox" name="cat5" id="cat5"> Category</label>
+                </div>
+                <div class="col-lg-7 col-md-5 col-10 d-flex gap-1 p-0 justify-content-md-end justify-content-start align-items-center">
+                  <input type="text" class="col-6" name="busq" id="busq">
+                  <button type="submit" class="buscar btn btn-dark"><img class="lupa p-0 m-0" src="assets/img/lupa.png" alt=""></button>
+                </div>
+              </form>
+<!----------------------------------------------cards eventos------------------------------------------------------------>
+          <div class="container-fluid d-flex flex-wrap gap-3 align-items-center justify-content-start pb-4">
             <!--carta-->
             <div class="card col-2">
               <img src="assets/img/Costume_Party.jpg" class="card-img-top" alt="evento1">
@@ -72,46 +86,46 @@
                 <p class="card-text text-center">Texto descriptivo</p>
                 <div class="p-0 m-0 d-flex align-items-baseline justify-content-between">
                   <p class="pequeño"><span>Price:</span> $21287</p>
-                  <a href="#" class="btn btn-goevents pequeño">Ver evento</a>
+                  <a href="./event.html" class="btn btn-goevents pequeño">Ver evento</a>
                 </div>
               </div>
             </div>
             <!--fin carta-->
             <!--carta-->
             <div class="card col-2">
-              <img src="assets/img/Costume_Party.jpg" class="card-img-top" alt="evento1">
+              <img src="assets/img/Marathon.jpg" class="card-img-top" alt="evento1">
               <div class="card-body">
                 <h5 class="card-title text-center">Título</h5>
                 <p class="card-text text-center">Texto descriptivo</p>
                 <div class="p-0 m-0 d-flex align-items-baseline justify-content-between">
                   <p class="pequeño"><span>Price:</span> $21287</p>
-                  <a href="#" class="btn btn-goevents pequeño">Ver evento</a>
+                  <a href="./event.html" class="btn btn-goevents pequeño">Ver evento</a>
                 </div>
               </div>
             </div>
             <!--fin carta-->
             <!--carta-->
             <div class="card col-2">
-              <img src="assets/img/Costume_Party.jpg" class="card-img-top" alt="evento1">
+              <img src="assets/img/Museum_Tour.jpg" class="card-img-top" alt="evento1">
               <div class="card-body">
                 <h5 class="card-title text-center">Título</h5>
                 <p class="card-text text-center">Texto descriptivo</p>
                 <div class="p-0 m-0 d-flex align-items-baseline justify-content-between">
                   <p class="pequeño"><span>Price:</span> $21287</p>
-                  <a href="#" class="btn btn-goevents pequeño">Ver evento</a>
+                  <a href="./event.html" class="btn btn-goevents pequeño">Ver evento</a>
                 </div>
               </div>
             </div>
             <!--fin carta-->
             <!--carta-->
             <div class="card col-2">
-              <img src="assets/img/Costume_Party.jpg" class="card-img-top" alt="evento1">
+              <img src="assets/img/Music_Concert.jpg" class="card-img-top" alt="evento1">
               <div class="card-body">
                 <h5 class="card-title text-center">Título</h5>
                 <p class="card-text text-center">Texto descriptivo</p>
                 <div class="p-0 m-0 d-flex align-items-baseline justify-content-between">
                   <p class="pequeño"><span>Price:</span> $21287</p>
-                  <a href="#" class="btn btn-goevents pequeño">Ver evento</a>
+                  <a href="./event.html" class="btn btn-goevents pequeño">Ver evento</a>
                 </div>
               </div>
             </div>
