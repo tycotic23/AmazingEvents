@@ -15,7 +15,6 @@ nav a{
     border-radius: 20px;
     padding: 1rem;
     margin: 0.5rem;
-    /*box-shadow: 0px 0 7px rgba(217,3,104, 0.8);*/
     border: 2px dashed rgb(217,3,104);
     color: rgb(217,3,104) !important;
     transition: all 0.3s;
@@ -208,9 +207,6 @@ tr{
 .th2{
 background-color: white !important;
 border: 2px solid rgb(223, 223, 223) !important;
-/*border-color: rgb(217,3,104) !important;
-border-style: dashed;
-border-width: 2px 2px 2px 0px !important;*/
 }
 
 
@@ -253,11 +249,40 @@ main h2{
    label{
     font-size: 10pt !important;
    }
+   footer .reds{
+    width: 10vw;
+    }
+    /*.navbar{
+        position: absolute;
+        top:2vh;
+        right: 2vw;
+    }*/
 
 }
 
 
 /*sm*/
-/*@media only screen and (max-width:576px){
-   
- }*/
+@media only screen and (max-width:576px){
+    
+ }
+
+ @media only screen and (max-width:400px){
+    footer .reds{
+        width: 15vw;
+    }
+
+    footer{
+        flex-direction: column;
+        gap: 1rem;
+    }
+ }
+
+ @media only screen and (max-width:300){
+    .card{
+        min-width: 150px !important;
+    }
+    .card-img-top{
+        min-width: 150px !important;
+        }
+    
+ }
