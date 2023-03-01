@@ -55,7 +55,6 @@ function generateCard(imgUrl, imgAlt,titulo,descripcion,precio){
     divBody.appendChild(createtext("p","card-text text-center",descripcion));
     //pie con boton y precio div
     let divPie=creatediv("p-0 m-0 d-flex align-items-baseline justify-content-between");
-    //precio **luego crear una funcion especial para crear precio que le anexe <span>Price:</span> antes (o puede ser desde css)
     divPie.appendChild(createtext("p","pequeño precio",precio));
     //boton
     divPie.appendChild(createButton());
@@ -63,7 +62,7 @@ function generateCard(imgUrl, imgAlt,titulo,descripcion,precio){
     divBody.appendChild(divPie);
     //unir cuerpo a la tarjeta
     divcard.appendChild(divBody);
-    //returna la tarjeta para unirla al document
+    //retorna la tarjeta para unirla al document
     return divcard;
 }
 
