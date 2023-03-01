@@ -1,3 +1,9 @@
+/*
+*
+* Generadores de objetos html
+*
+*/ 
+
 function createtext(etiqueta,clase,texto){
     let elemento=document.createElement(etiqueta);
     elemento.setAttribute("class",clase);
@@ -25,9 +31,16 @@ function createButton(){
     let elemento=document.createElement("a");
     elemento.setAttribute("class","btn btn-goevents pequeño");
     elemento.setAttribute("href","./event.html");
-    elemento.appendChild(document.createTextNode("Ver evento"));
+    elemento.appendChild(document.createTextNode("See event"));
     return elemento;
 }
+
+
+/*
+*
+* Generadores de la card segun parametros 
+*
+*/ 
 
 function generateCard(imgUrl, imgAlt,titulo,descripcion,precio){
     //crear div general de la tarjeta
@@ -52,4 +65,61 @@ function generateCard(imgUrl, imgAlt,titulo,descripcion,precio){
     divcard.appendChild(divBody);
     //returna la tarjeta para unirla al document
     return divcard;
+}
+
+/*
+*
+* operaciones entre fechas (podrian ir en otro script pero no queria seguir sumando scripts para agregar en el html)
+*
+*/ 
+
+function fechaMasAntigua(fecha1,fecha2){
+    //pasar fechas a arrays
+    let f1=fecha1.split("-");
+    let f2=fecha2.split("-");
+    //comparando años, si f1 es mas actual
+    if(f1[0]>f2[0]) return fecha2;
+    if (f1[0]<f2[0]) return fecha1;
+    //si llego hasta aca es porque los años coinciden
+    //comparando meses
+    if(f1[1]>f2[1]) return fecha2;
+    if (f1[1]<f2[1]) return fecha1;
+    //si llego hasta aca es porque los meses coinciden
+    //comparando dias
+    if(f1[2]>f2[2]) return fecha2;
+    if (f1[2]<f2[2]) return fecha1;
+    //en este caso coinciden
+    return "coinciden";
+}
+
+/*
+*
+* manipulando data.js
+*
+*/ 
+
+function getAllEvents(){
+    return data.events;
+}
+
+function getPastEvents(fecha){
+    return data.events.filter(
+        function(event){
+            //va a ser igual a la mas antigua de las fechas
+            let masAntigua=fechaMasAntigua(fecha,event.date);
+            //si son iguales va a futuro, asi que debe retornar true solo si la fecha del evento es anterior a la fecha de comparacion
+            return masAntigua==event.date;
+        }
+    );
+}
+
+function getFutureEvents(fecha){
+    return data.events.filter(
+        function(event){
+            //va a ser igual a la mas antigua de las fechas
+            let masAntigua=fechaMasAntigua(fecha,event.date);
+            //retorna true si la fecha del evento es igual o posterior a la fecha de comparacion
+            return masAntigua!=event.date;
+        }
+    );
 }
