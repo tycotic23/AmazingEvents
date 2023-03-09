@@ -35,6 +35,23 @@ function createButton(){
     return elemento;
 }
 
+function createLabel(name){
+    let elemento=document.createElement("label");
+    elemento.setAttribute("class","d-flex gap-1 align-items-center");
+    elemento.setAttribute("for",name);
+    return elemento;
+}
+
+function createInput(name){
+    let elemento=document.createElement("input");
+    elemento.setAttribute("class","checkbox-category");
+    elemento.setAttribute("type","checkbox");
+    elemento.setAttribute("name",name);
+    elemento.setAttribute("id",name);
+    elemento.setAttribute("checked","true");
+    return elemento;
+}
+
 
 /*
 *
@@ -64,6 +81,29 @@ function generateCard(imgUrl, imgAlt,titulo,descripcion,precio){
     divcard.appendChild(divBody);
     //retorna la tarjeta para unirla al document
     return divcard;
+}
+
+/*
+*
+*Generador de categorias: recibe una categoria (string)
+*/
+
+function generateCategoryInput(category){
+    //crear label
+    let label=createLabel(category);
+    //agregar input al label
+    label.appendChild(createInput(category));
+    //agregar texto
+    label.appendChild(document.createTextNode(category));
+    return label;
+}
+
+function generateDOMCategories(categories,parent){
+    /*agregar los hijos al div de las categorias, se hace desde el controlador porque
+    deberia respetar siempre el mismo esquema*/
+    categories.forEach(category => {
+        parent.appendChild(generateCategoryInput(category));
+    });
 }
 
 /*
@@ -102,23 +142,61 @@ function getAllEvents(){
 }
 
 function getPastEvents(fecha){
-    return data.events.filter(
-        function(event){
-            //va a ser igual a la mas antigua de las fechas
-            let masAntigua=fechaMasAntigua(fecha,event.date);
-            //si son iguales va a futuro, asi que debe retornar true solo si la fecha del evento es anterior a la fecha de comparacion
-            return masAntigua==event.date;
-        }
-    );
+    //si son iguales va a futuro, asi que debe retornar true solo si la fecha del evento es anterior a la fecha de comparacion
+    return data.events.filter((e)=>fechaMasAntigua(fecha,e.date)==e.date);
 }
 
 function getFutureEvents(fecha){
-    return data.events.filter(
-        function(event){
-            //va a ser igual a la mas antigua de las fechas
-            let masAntigua=fechaMasAntigua(fecha,event.date);
-            //retorna true si la fecha del evento es igual o posterior a la fecha de comparacion
-            return masAntigua!=event.date;
-        }
-    );
+    //retorna true si la fecha del evento es igual o posterior a la fecha de comparacion
+    return data.events.filter((e)=>e.date!=fechaMasAntigua(fecha,e.date));
+}
+
+/*toman un array de elementos y devuelven solo los que cumplen con un array de condiciones (con AND o con OR segun)
+*condiciones es un array de funciones booleanas que reciben un evento: (e)=>booleano;
+*se contruye asi: filtrarData(data.events,[(e)=>e.name=="Collectivities Party",(e)=>true,(e)=>true])
+*/
+
+function filtrarDataAND(events,condiciones){
+    return events.filter(e=>condiciones.reduce((pasa,cond)=>pasa*cond(e),true));
+
+}
+function filtrarDataOR(events,condiciones){
+    return events.filter(e=>condiciones.reduce((pasa,cond)=>pasa+cond(e),false));
+
+}
+
+/*
+* 
+filtrarData(data.events,[condiciones-and(como el nombre del buscador)],[condiciones-or (como categorias)])
+*ejemplo:
+*filtrarData(data.events,[(e)=>e.name=="Collectivities Party",(e)=>true,(e)=>true],[(e)=>e.category=="Food Fair",(e)=>false])
+*/
+
+function filtrarData(events,condicionesAND,condicionesOR){
+    return events.filter(e=>condicionesAND.reduce((pasa,cond)=>pasa*cond(e),true) && condicionesOR.reduce((pasa,cond)=>pasa+cond(e),false));
+
+}
+
+/*filtro de nombre: busca un name que contenga la subcadena */
+function findByName(events,search){
+    return events.filter(e=>e.name.toLowerCase().includes(search.toLowerCase()));
+}
+
+/*retorna un array con todas las categorias */
+function getCategories(events){
+    return new Set(events.reduce((categories,e)=>categories.concat(e.category),[]));
+}
+
+function getAllCategories(){
+    return getCategories(data.events);
+}
+
+/*retorna una funcion de filtro de nombre*/
+function filterByName(name){
+    return (e)=>e.name.toLowerCase().includes(name.toLowerCase());
+}
+
+/*retorna una funcion de filtro de categoria*/
+function filterByCategory(category){
+    return (e)=>e.category==category;
 }
