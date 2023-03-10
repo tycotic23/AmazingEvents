@@ -27,11 +27,11 @@ function createimg(clase, src, alt){
 
 
 
-function createButton(){
+function createButton(cardID){
     let elemento=document.createElement("a");
     elemento.setAttribute("class","btn btn-goevents pequeño");
-    elemento.setAttribute("href","./event.html");
-    elemento.appendChild(document.createTextNode("See event"));
+    elemento.setAttribute("href",`./event.html?id=${cardID}`);
+    elemento.appendChild(document.createTextNode("See more"));
     return elemento;
 }
 
@@ -59,22 +59,24 @@ function createInput(name){
 *
 */ 
 
-function generateCard(imgUrl, imgAlt,titulo,descripcion,precio){
+function generateCard(event){
     //crear div general de la tarjeta
     let divcard=creatediv("card col-2")
     //imagen de la tarjeta
-    divcard.appendChild(createimg("card-img-top",imgUrl,imgAlt));
+    divcard.appendChild(createimg("card-img-top",event.image,event.name));
     //crear cuerpo
     let divBody=creatediv("card-body");
+    //fecha
+    divBody.appendChild(createtext("h6","card-title text-left",event.date));
     //titulo
-    divBody.appendChild(createtext("h5","card-title text-center",titulo));
+    divBody.appendChild(createtext("h5","card-title text-center",event.name));
     //texto
-    divBody.appendChild(createtext("p","card-text text-center",descripcion));
+    divBody.appendChild(createtext("p","card-text text-center",event.description));
     //pie con boton y precio div
     let divPie=creatediv("p-0 m-0 d-flex align-items-baseline justify-content-between");
-    divPie.appendChild(createtext("p","pequeño precio",precio));
+    divPie.appendChild(createtext("p","pequeño precio","$"+event.price));
     //boton
-    divPie.appendChild(createButton());
+    divPie.appendChild(createButton(event._id));
     //unir div de boton y precio al cuerpo
     divBody.appendChild(divPie);
     //unir cuerpo a la tarjeta
@@ -180,6 +182,11 @@ function filtrarData(events,condicionesAND,condicionesOR){
 /*filtro de nombre: busca un name que contenga la subcadena */
 function findByName(events,search){
     return events.filter(e=>e.name.toLowerCase().includes(search.toLowerCase()));
+}
+
+/*Devuelve un unico evento con esa id*/
+function findById(id){
+    return data.events.find(e=>e._id==id);
 }
 
 /*retorna un array con todas las categorias */

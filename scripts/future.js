@@ -6,7 +6,7 @@ function search(event){
       };
       //traer las nuevas cards filtradas
       filtrarData(eventosFuturos,[filterByName(barraBusqueda.value)],checkCategory()).forEach(event => {
-        divEventos.appendChild(generateCard(event.image,event.name,event.name,event.description,"$"+event.price));
+        divEventos.appendChild(generateCard(event));
     });
 }
 
@@ -28,7 +28,7 @@ let eventosFuturos=getFutureEvents(data.currentDate);
 
 //traer todos los eventos futuros
 eventosFuturos.forEach(event => {
-    divEventos.appendChild(generateCard(event.image,event.name,event.name,event.description,"$"+event.price));
+    divEventos.appendChild(generateCard(event));
 });
 
 //obtener boton de buscar y darle evento al hacer click

@@ -6,7 +6,7 @@ function search(event){
       };
       //traer las nuevas cards filtradas
       filtrarData(data.events,[filterByName(barraBusqueda.value)],checkCategory()).forEach(event => {
-        divEventos.appendChild(generateCard(event.image,event.name,event.name,event.description,"$"+event.price));
+        divEventos.appendChild(generateCard(event));
     });
 }
 
@@ -30,7 +30,7 @@ let divEventos=document.getElementById("div-eventos");
 
 //traer todos los eventos
 getAllEvents().forEach(event => {
-    divEventos.appendChild(generateCard(event.image,event.name,event.name,event.description,"$"+event.price));
+    divEventos.appendChild(generateCard(event));
 });
 
 
