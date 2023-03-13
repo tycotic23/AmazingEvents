@@ -11,8 +11,6 @@ function search(event){
 }
 
 function checkCategory(){
-    /* console.log(event.srcElement.name);
-    console.log(event.srcElement.checked); */
     let presionadas=[];
     let categories = document.getElementsByClassName("checkbox-category");
     for (category of categories){

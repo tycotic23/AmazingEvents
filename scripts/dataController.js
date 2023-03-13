@@ -189,8 +189,9 @@ function findById(id){
     return data.events.find(e=>e._id==id);
 }
 
-/*retorna un array con todas las categorias */
+/*retorna un set con todas las categorias */
 function getCategories(events){
+    //el reduce es porque si usara un map devolveria un array. 
     return new Set(events.reduce((categories,e)=>categories.concat(e.category),[]));
 }
 
