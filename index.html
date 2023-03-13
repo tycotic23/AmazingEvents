@@ -61,7 +61,7 @@
 <!--..................................................................................................................-->
 <!--................................................contenido.........................................................-->
 <!--..................................................................................................................-->
-        <section class="d-flex flex-column container-fluid pt-3 gap-4">
+        <div class="d-flex flex-column container-fluid pt-3 gap-4">
 <!--...........................................formulario - buscador..................................................-->
             <form class="container-fluid d-flex flex-column flex-sm-row flex-wrap justify-content-md-between justify-content-start align-items-md-center align-items-start gap-2 gap-md-0">
               <div class="col-lg-5 d-flex gap-3 p-0 flex-md-nowrap flex-wrap">
@@ -77,61 +77,10 @@
               </div>
             </form>
 <!--............................................cards eventos..........................................................-->
-            <div class="container-fluid d-flex flex-wrap gap-3 align-items-center justify-content-sm-start pb-4 flex-sm-row flex-column justify-content-center">
-              <!--carta-->
-              <div class="card col-2">
-                <img src="assets/img/Costume_Party.jpg" class="card-img-top" alt="evento1">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Título</h5>
-                  <p class="card-text text-center">Texto descriptivo</p>
-                  <div class="p-0 m-0 d-flex align-items-baseline justify-content-between">
-                    <p class="pequeño"><span>Price:</span> $21287</p>
-                    <a href="./event.html" class="btn btn-goevents pequeño">Ver evento</a>
-                  </div>
-                </div>
-              </div>
-              <!--fin carta-->
-              <!--carta-->
-              <div class="card col-2">
-                <img src="assets/img/Marathon.jpg" class="card-img-top" alt="evento1">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Título</h5>
-                  <p class="card-text text-center">Texto descriptivo</p>
-                  <div class="p-0 m-0 d-flex align-items-baseline justify-content-between">
-                    <p class="pequeño"><span>Price:</span> $21287</p>
-                    <a href="./event.html" class="btn btn-goevents pequeño">Ver evento</a>
-                  </div>
-                </div>
-              </div>
-              <!--fin carta-->
-              <!--carta-->
-              <div class="card col-2">
-                <img src="assets/img/Museum_Tour.jpg" class="card-img-top" alt="evento1">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Título</h5>
-                  <p class="card-text text-center">Texto descriptivo</p>
-                  <div class="p-0 m-0 d-flex align-items-baseline justify-content-between">
-                    <p class="pequeño"><span>Price:</span> $21287</p>
-                    <a href="./event.html" class="btn btn-goevents pequeño">Ver evento</a>
-                  </div>
-                </div>
-              </div>
-              <!--fin carta-->
-              <!--carta-->
-              <div class="card col-2">
-                <img src="assets/img/Music_Concert.jpg" class="card-img-top" alt="evento1">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Título</h5>
-                  <p class="card-text text-center">Texto descriptivo</p>
-                  <div class="p-0 m-0 d-flex align-items-baseline justify-content-between">
-                    <p class="pequeño"><span>Price:</span> $21287</p>
-                    <a href="./event.html" class="btn btn-goevents pequeño">Ver evento</a>
-                  </div>
-                </div>
-              </div>
-              <!--fin carta-->
+            <div id="div-eventos" class="container-fluid d-flex flex-wrap gap-3 align-items-start justify-content-sm-start pb-4 flex-sm-row flex-column justify-content-center">
+              <!--Aqui van las cartas generadas en javascript-->
             </div>
-        </section>
+          </div>
     </main>
 <!--..................................................................................................................-->
 <!--..................................................footer..........................................................-->
@@ -145,5 +94,8 @@
         <img class="logo" src="assets/img/logo-blanco.png" alt="">
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="scripts/data.js"></script>
+    <script src="scripts/dataController.js"></script>
+    <script src="scripts/index.js"></script>
 </body>
 </html>
