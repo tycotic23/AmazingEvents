@@ -6,10 +6,18 @@ function search(event){
       };
       //traer las nuevas cards filtradas
       //filtrarData es un filtro dinamico, solo revisa las funciones que se le pasan. 
-      //luego a cada uno de ellos se le genera una card y se agrega a divEventos
-      filtrarData(data.events,[filterByName(barraBusqueda.value)],checkCategory()).forEach(event => {
+     
+      let eventosFiltrados=filtrarData(data.events,[filterByName(barraBusqueda.value)],checkCategory());
+      if(eventosFiltrados.length==0){
+        //si no hay eventos debe indicar que ninguno cumple
+        divEventos.appendChild(createtext('p',"","Ningún evento cumple con los criterios de búsqueda"));
+      }
+      else{
+         //genera una card por cada evento y se agrega a divEventos
+         eventosFiltrados.forEach(event => {
         divEventos.appendChild(generateCard(event));
-    });
+        });
+    }
 }
 
 function checkCategory(){
