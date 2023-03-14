@@ -5,18 +5,22 @@ function search(event){
         divEventos.removeChild(divEventos.firstChild);
       };
       //traer las nuevas cards filtradas
+      //filtrarData es un filtro dinamico, solo revisa las funciones que se le pasan. 
+      //luego a cada uno de ellos se le genera una card y se agrega a divEventos
       filtrarData(eventosPasados,[filterByName(barraBusqueda.value)],checkCategory()).forEach(event => {
         divEventos.appendChild(generateCard(event));
     });
 }
 
 function checkCategory(){
+    //obtengo todas las categorias tildadas por el usuario
     let presionadas=[];
     let categories = document.getElementsByClassName("checkbox-category");
     for (category of categories){
         if(category.checked)
             presionadas=presionadas.concat(category);
     }
+    //devuelvo un array de funciones para construir el filtro de manera dinamica
     return presionadas.map(category=>filterByCategory(category.name));
 }
 
