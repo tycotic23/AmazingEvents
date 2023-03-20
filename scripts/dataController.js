@@ -4,6 +4,7 @@
 *
 */ 
 
+
 function createtext(etiqueta,clase,texto){
     let elemento=document.createElement(etiqueta);
     elemento.setAttribute("class",clase);
@@ -140,6 +141,7 @@ function fechaMasAntigua(fecha1,fecha2){
 */ 
 
 function getAllEvents(){
+    //return data.
     return data.events;
 }
 

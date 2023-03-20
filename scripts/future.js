@@ -31,22 +31,37 @@ function checkCategory(){
     return presionadas.map(category=>filterByCategory(category.name));
 }
 
+function ManipularEvents(){
+
+    //eventos futuros
+    eventosFuturos=getFutureEvents(data.currentDate);
+
+    //traer todos los eventos futuros
+    eventosFuturos.forEach(event => {
+        divEventos.appendChild(generateCard(event));
+    });
+
+    //evento buscar al hacer click
+    btnSearch.addEventListener('click',search);
+
+    //generar las categorias
+    generateDOMCategories(getCategories(eventosFuturos),categoriesBar);
+}
+
+
+let data;
+let eventosFuturos;
+//obtener datos
+fetch("https://mindhub-xj03.onrender.com/api/amazing").then(datos=>datos.json()).then(
+    api=>{
+        data=api;
+        ManipularEvents();
+    });
+
 //obtener div con los eventos
 let divEventos=document.getElementById("div-eventos");
-
-//eventos futuros
-let eventosFuturos=getFutureEvents(data.currentDate);
-
-//traer todos los eventos futuros
-eventosFuturos.forEach(event => {
-    divEventos.appendChild(generateCard(event));
-});
-
-//obtener boton de buscar y darle evento al hacer click
-let btnSearch=document.getElementById("search");
-let barraBusqueda=document.getElementById("busq");
-btnSearch.addEventListener('click',search);
-
-//obtener el div de las categories y generarlas
+ //obtener boton de buscar
+ let btnSearch=document.getElementById("search");
+ let barraBusqueda=document.getElementById("busq");
+//obtener el div de las categories
 let categoriesBar=document.getElementById("categories");
-generateDOMCategories(getCategories(eventosFuturos),categoriesBar);

@@ -31,29 +31,31 @@ function checkCategory(){
     return presionadas.map(category=>filterByCategory(category.name));
 }
 
+function ManipularEvents(){
+   
+    //traer todos los eventos
+    getAllEvents().forEach(event => {
+        divEventos.appendChild(generateCard(event));
+    });
+
+  
+    //generar las categorias
+    generateDOMCategories(getAllCategories(),categoriesBar);
+}
+
+let data;
+//obtener datos
+fetch("https://mindhub-xj03.onrender.com/api/amazing").then(datos=>datos.json()).then(
+    api=>{
+        data=api;
+        ManipularEvents();
+    });
 
 //obtener div con los eventos
 let divEventos=document.getElementById("div-eventos");
-
-
-
-//traer todos los eventos
-getAllEvents().forEach(event => {
-    divEventos.appendChild(generateCard(event));
-});
-
-
-//obtener boton de buscar y darle evento al hacer click
-let btnSearch=document.getElementById("search");
-let barraBusqueda=document.getElementById("busq");
-btnSearch.addEventListener('click',search);
-
-//obtener el div de las categories y generarlas
-let categoriesBar=document.getElementById("categories");
-generateDOMCategories(getAllCategories(),categoriesBar);
-
-
-
-
-
-
+ //obtener boton de buscar y darle evento al hacer click
+ let btnSearch=document.getElementById("search");
+ let barraBusqueda=document.getElementById("busq");
+ btnSearch.addEventListener('click',search);
+   //obtener el div de las categories
+   let categoriesBar=document.getElementById("categories");
