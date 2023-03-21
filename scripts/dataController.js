@@ -12,6 +12,14 @@ function createtext(etiqueta,clase,texto){
     return elemento;
 }
 
+function createCell(contenido){
+    return createtext("td","",contenido);
+}
+
+function createRow(){
+    return document.createElement("tr");
+}
+
 function creatediv(clase){
     let elemento=document.createElement("div");
     elemento.setAttribute("class",clase);
@@ -191,6 +199,11 @@ function findById(id){
     return data.events.find(e=>e._id==id);
 }
 
+//devuelve una rray de eventos de cierta categoria
+function findByCategory(category){
+    return data.events.filter(e=>e.category==category);
+}
+
 /*retorna un set con todas las categorias */
 function getCategories(events){
     return new Set(events.map(e=>e.category));
@@ -208,4 +221,34 @@ function filterByName(name){
 /*retorna una funcion de filtro de categoria*/
 function filterByCategory(category){
     return (e)=>e.category==category;
+}
+
+/*funciones sobre eventos */
+function percentageAssistance(evento){
+    return ((evento.hasOwnProperty("estimate"))? evento.estimate:evento.assistance)/evento.capacity;
+}
+
+function MostAssistance(eventos){
+    //devuelve el evento con mayor asistencia, toma un array de eventos
+    return eventos.reduce((mayor,e)=>(percentageAssistance(e)>percentageAssistance(mayor))?e:mayor,{assistance:0,capacity:1});
+}
+
+function LessAssistance(eventos){
+    //devuelve el evento con mayor asistencia, toma un array de eventos
+    return eventos.reduce((menor,e)=>(percentageAssistance(e)<percentageAssistance(menor))?e:menor,{assistance:1,capacity:1});
+}
+
+function MostCapacity(eventos){
+    //devuelve el evento con mayor asistencia, toma un array de eventos
+    return eventos.reduce((mayor,e)=>(e.capacity>mayor.capacity)?e:mayor,{capacity:0});
+}
+
+function getEventsRevenues(eventos){
+    //devuelve la ganancia total de todos los eventos
+    return eventos.reduce((revenues,e)=>revenues+e.price*((e.hasOwnProperty("estimate"))? e.estimate:e.assistance),0);
+}
+
+function getEventsAttendance(eventos){
+    //devuelve un promedio con el porcentaje de asistencia de todos los eventos
+    return eventos.reduce((percentage,e)=>percentage+percentageAssistance(e),0)/eventos.length;
 }
