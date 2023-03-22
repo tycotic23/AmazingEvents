@@ -67,3 +67,6 @@ let divEventos=document.getElementById("div-eventos");
 
    //obtener el div de las categories
    let categoriesBar=document.getElementById("categories");
+    //hacer que filtre cada vez que agrega una letra al buscador o tilda/destilda una categoria
+ barraBusqueda.addEventListener('input',search);
+ categoriesBar.addEventListener('change',search);

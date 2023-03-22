@@ -14,17 +14,22 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing").then(datos=>datos.json())
 
 
 function ManipularEvents(){
+    //categorias pasadas
+    let eventosPasados=getPastEvents(data.currentDate);
+    let categoriasPasadas= getCategories(eventosPasados);
+    //categorias futuras
+    let eventosFuturos=getFutureEvents(data.currentDate);
+    let categoriasFuturas= getCategories(eventosFuturos);
+
     //crear primera fila
-    let mostAssistance=MostAssistance(data.events);
-    let lessAssistance=LessAssistance(data.events);
-    let mostCapacity=MostCapacity(data.events);
+    let mostAssistance=MostAssistance(eventosPasados);
+    let lessAssistance=LessAssistance(eventosPasados);
+    let mostCapacity=MostCapacity(eventosPasados);
     filaGeneral.appendChild(createCell(`${mostAssistance.name} (${(percentageAssistance(mostAssistance)*100).toFixed(2)}%)`));
     filaGeneral.appendChild(createCell(`${lessAssistance.name} (${(percentageAssistance(lessAssistance)*100).toFixed(2)}%)`));
     filaGeneral.appendChild(createCell(`${mostCapacity.name} (${mostCapacity.capacity})`));
 
-    //categorias futuras
-    let eventosFuturos=getFutureEvents(data.currentDate);
-    let categoriasFuturas= getCategories(eventosFuturos);
+    
     //agregar una fila por cada categoria y rellenar
     categoriasFuturas.forEach(category=>{
         //crear fila
@@ -41,9 +46,7 @@ function ManipularEvents(){
         tbodyUpcoming.appendChild(fila);
     });
 
-    //categorias pasadas
-    let eventosPasados=getPastEvents(data.currentDate);
-    let categoriasPasadas= getCategories(eventosPasados);
+    
     //agregar una fila por cada categoria y rellenar
     categoriasPasadas.forEach(category=>{
         //crear fila

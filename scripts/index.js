@@ -57,5 +57,9 @@ let divEventos=document.getElementById("div-eventos");
  let btnSearch=document.getElementById("search");
  let barraBusqueda=document.getElementById("busq");
  btnSearch.addEventListener('click',search);
-   //obtener el div de las categories
-   let categoriesBar=document.getElementById("categories");
+ //obtener el div de las categories
+ let categoriesBar=document.getElementById("categories");
+ //hacer que filtre cada vez que agrega una letra al buscador o tilda/destilda una categoria
+ barraBusqueda.addEventListener('input',search);
+ categoriesBar.addEventListener('change',search);
+   

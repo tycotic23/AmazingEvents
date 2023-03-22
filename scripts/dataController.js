@@ -57,7 +57,6 @@ function createInput(name){
     elemento.setAttribute("type","checkbox");
     elemento.setAttribute("name",name);
     elemento.setAttribute("id",name);
-    elemento.setAttribute("checked","true");
     return elemento;
 }
 
@@ -185,7 +184,8 @@ filtrarData(data.events,[condiciones-and(como el nombre del buscador)],[condicio
 */
 
 function filtrarData(events,condicionesAND,condicionesOR){
-    return events.filter(e=>condicionesAND.reduce((pasa,cond)=>pasa*cond(e),true) && condicionesOR.reduce((pasa,cond)=>pasa+cond(e),false));
+    //si el array de condiciones or esta vacio es porque no hay categorias tildadas, por lo que debe mostrar todas
+    return events.filter(e=>condicionesAND.reduce((pasa,cond)=>pasa*cond(e),true) && condicionesOR.reduce((pasa,cond)=>pasa+cond(e),condicionesOR.length==0));
 
 }
 
