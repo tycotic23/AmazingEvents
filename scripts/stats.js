@@ -35,7 +35,7 @@ function ManipularEvents(){
         //crear fila
         let fila=createRow();
         //filtrar eventos
-        let eventos = findByCategory(category);
+        let eventos = findByCategory(eventosFuturos,category);
         //primera celda con titulo
         fila.appendChild(createCell(category));
         //ganancias
@@ -52,7 +52,7 @@ function ManipularEvents(){
         //crear fila
         let fila=createRow();
         //filtrar eventos
-        let eventos = findByCategory(category);
+        let eventos = findByCategory(eventosPasados,category);
         //primera celda con titulo
         fila.appendChild(createCell(category));
         //ganancias

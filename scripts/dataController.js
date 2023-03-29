@@ -200,8 +200,8 @@ function findById(id){
 }
 
 //devuelve una rray de eventos de cierta categoria
-function findByCategory(category){
-    return data.events.filter(e=>e.category==category);
+function findByCategory(events,category){
+    return events.filter(e=>e.category==category);
 }
 
 /*retorna un set con todas las categorias */
