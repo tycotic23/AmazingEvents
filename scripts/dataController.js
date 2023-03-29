@@ -4,11 +4,20 @@
 *
 */ 
 
+
 function createtext(etiqueta,clase,texto){
     let elemento=document.createElement(etiqueta);
     elemento.setAttribute("class",clase);
     elemento.appendChild(document.createTextNode(texto));
     return elemento;
+}
+
+function createCell(contenido){
+    return createtext("td","",contenido);
+}
+
+function createRow(){
+    return document.createElement("tr");
 }
 
 function creatediv(clase){
@@ -27,11 +36,27 @@ function createimg(clase, src, alt){
 
 
 
-function createButton(){
+function createButton(cardID){
     let elemento=document.createElement("a");
     elemento.setAttribute("class","btn btn-goevents pequeño");
-    elemento.setAttribute("href","./event.html");
-    elemento.appendChild(document.createTextNode("See event"));
+    elemento.setAttribute("href",`./event.html?id=${cardID}`);
+    elemento.appendChild(document.createTextNode("See more"));
+    return elemento;
+}
+
+function createLabel(name){
+    let elemento=document.createElement("label");
+    elemento.setAttribute("class","d-flex gap-1 align-items-center");
+    elemento.setAttribute("for",name);
+    return elemento;
+}
+
+function createInput(name){
+    let elemento=document.createElement("input");
+    elemento.setAttribute("class","checkbox-category");
+    elemento.setAttribute("type","checkbox");
+    elemento.setAttribute("name",name);
+    elemento.setAttribute("id",name);
     return elemento;
 }
 
@@ -42,28 +67,53 @@ function createButton(){
 *
 */ 
 
-function generateCard(imgUrl, imgAlt,titulo,descripcion,precio){
+function generateCard(event){
     //crear div general de la tarjeta
     let divcard=creatediv("card col-2")
     //imagen de la tarjeta
-    divcard.appendChild(createimg("card-img-top",imgUrl,imgAlt));
+    divcard.appendChild(createimg("card-img-top",event.image,event.name));
     //crear cuerpo
     let divBody=creatediv("card-body");
+    //fecha
+    divBody.appendChild(createtext("h6","card-title text-left",event.date));
     //titulo
-    divBody.appendChild(createtext("h5","card-title text-center",titulo));
+    divBody.appendChild(createtext("h5","card-title text-center",event.name));
     //texto
-    divBody.appendChild(createtext("p","card-text text-center",descripcion));
+    divBody.appendChild(createtext("p","card-text text-center",event.description));
     //pie con boton y precio div
     let divPie=creatediv("p-0 m-0 d-flex align-items-baseline justify-content-between");
-    divPie.appendChild(createtext("p","pequeño precio",precio));
+    divPie.appendChild(createtext("p","pequeño precio","$"+event.price));
     //boton
-    divPie.appendChild(createButton());
+    divPie.appendChild(createButton(event._id));
     //unir div de boton y precio al cuerpo
     divBody.appendChild(divPie);
     //unir cuerpo a la tarjeta
     divcard.appendChild(divBody);
     //retorna la tarjeta para unirla al document
     return divcard;
+}
+
+/*
+*
+*Generador de categorias: recibe una categoria (string)
+*/
+
+function generateCategoryInput(category){
+    //crear label
+    let label=createLabel(category);
+    //agregar input al label
+    label.appendChild(createInput(category));
+    //agregar texto
+    label.appendChild(document.createTextNode(category));
+    return label;
+}
+
+function generateDOMCategories(categories,parent){
+    /*agregar los hijos al div de las categorias, se hace desde el controlador porque
+    deberia respetar siempre el mismo esquema*/
+    categories.forEach(category => {
+        parent.appendChild(generateCategoryInput(category));
+    });
 }
 
 /*
@@ -98,27 +148,107 @@ function fechaMasAntigua(fecha1,fecha2){
 */ 
 
 function getAllEvents(){
+    //return data.
     return data.events;
 }
 
 function getPastEvents(fecha){
-    return data.events.filter(
-        function(event){
-            //va a ser igual a la mas antigua de las fechas
-            let masAntigua=fechaMasAntigua(fecha,event.date);
-            //si son iguales va a futuro, asi que debe retornar true solo si la fecha del evento es anterior a la fecha de comparacion
-            return masAntigua==event.date;
-        }
-    );
+    //si son iguales va a futuro, asi que debe retornar true solo si la fecha del evento es anterior a la fecha de comparacion
+    return data.events.filter((e)=>fechaMasAntigua(fecha,e.date)==e.date);
 }
 
 function getFutureEvents(fecha){
-    return data.events.filter(
-        function(event){
-            //va a ser igual a la mas antigua de las fechas
-            let masAntigua=fechaMasAntigua(fecha,event.date);
-            //retorna true si la fecha del evento es igual o posterior a la fecha de comparacion
-            return masAntigua!=event.date;
-        }
-    );
+    //retorna true si la fecha del evento es igual o posterior a la fecha de comparacion
+    return data.events.filter((e)=>e.date!=fechaMasAntigua(fecha,e.date));
+}
+
+/*toman un array de elementos y devuelven solo los que cumplen con un array de condiciones (con AND o con OR segun)
+*condiciones es un array de funciones booleanas que reciben un evento: (e)=>booleano;
+*se contruye asi: filtrarData(data.events,[(e)=>e.name=="Collectivities Party",(e)=>true,(e)=>true])
+*/
+
+function filtrarDataAND(events,condiciones){
+    return events.filter(e=>condiciones.reduce((pasa,cond)=>pasa*cond(e),true));
+
+}
+function filtrarDataOR(events,condiciones){
+    return events.filter(e=>condiciones.reduce((pasa,cond)=>pasa+cond(e),false));
+
+}
+
+/*
+* 
+filtrarData(data.events,[condiciones-and(como el nombre del buscador)],[condiciones-or (como categorias)])
+*ejemplo:
+*filtrarData(data.events,[(e)=>e.name=="Collectivities Party",(e)=>true,(e)=>true],[(e)=>e.category=="Food Fair",(e)=>false])
+*/
+
+function filtrarData(events,condicionesAND,condicionesOR){
+    //si el array de condiciones or esta vacio es porque no hay categorias tildadas, por lo que debe mostrar todas
+    return events.filter(e=>condicionesAND.reduce((pasa,cond)=>pasa*cond(e),true) && condicionesOR.reduce((pasa,cond)=>pasa+cond(e),condicionesOR.length==0));
+
+}
+
+/*filtro de nombre: busca un name que contenga la subcadena */
+function findByName(events,search){
+    return events.filter(e=>e.name.toLowerCase().includes(search.toLowerCase()));
+}
+
+/*Devuelve un unico evento con esa id*/
+function findById(id){
+    return data.events.find(e=>e._id==id);
+}
+
+//devuelve una rray de eventos de cierta categoria
+function findByCategory(events,category){
+    return events.filter(e=>e.category==category);
+}
+
+/*retorna un set con todas las categorias */
+function getCategories(events){
+    return new Set(events.map(e=>e.category));
+}
+
+function getAllCategories(){
+    return getCategories(data.events);
+}
+
+/*retorna una funcion de filtro de nombre*/
+function filterByName(name){
+    return (e)=>e.name.toLowerCase().includes(name.toLowerCase());
+}
+
+/*retorna una funcion de filtro de categoria*/
+function filterByCategory(category){
+    return (e)=>e.category==category;
+}
+
+/*funciones sobre eventos */
+function percentageAssistance(evento){
+    return ((evento.hasOwnProperty("estimate"))? evento.estimate:evento.assistance)/evento.capacity;
+}
+
+function MostAssistance(eventos){
+    //devuelve el evento con mayor asistencia, toma un array de eventos
+    return eventos.reduce((mayor,e)=>(percentageAssistance(e)>percentageAssistance(mayor))?e:mayor,{assistance:0,capacity:1});
+}
+
+function LessAssistance(eventos){
+    //devuelve el evento con mayor asistencia, toma un array de eventos
+    return eventos.reduce((menor,e)=>(percentageAssistance(e)<percentageAssistance(menor))?e:menor,{assistance:1,capacity:1});
+}
+
+function MostCapacity(eventos){
+    //devuelve el evento con mayor asistencia, toma un array de eventos
+    return eventos.reduce((mayor,e)=>(e.capacity>mayor.capacity)?e:mayor,{capacity:0});
+}
+
+function getEventsRevenues(eventos){
+    //devuelve la ganancia total de todos los eventos
+    return eventos.reduce((revenues,e)=>revenues+e.price*((e.hasOwnProperty("estimate"))? e.estimate:e.assistance),0);
+}
+
+function getEventsAttendance(eventos){
+    //devuelve un promedio con el porcentaje de asistencia de todos los eventos
+    return eventos.reduce((percentage,e)=>percentage+percentageAssistance(e),0)/eventos.length;
 }
